@@ -27,7 +27,7 @@ def solicitar_y_validar_numero_en_rango(mensaje:str, minimo:int, maximo:int)->in
         numero = input(mensaje)
     numero = castear_dato(numero)
     return numero
-def solicitar_y_validar_cadena_y_longitud(
+def solicitar_y_validar_cadena(
         mensaje:str, opciones:list|str, longitud:int=None
         )->str:
     """
@@ -47,7 +47,7 @@ def solicitar_y_validar_cadena_y_longitud(
         cadena = input(mensaje)
     
     return cadena
-def generar_menu(opciones:list, cantidad:int):
+def generar_menu(opciones:list, cantidad:int, mensaje:str=f"\nPor favor, seleccione una opción: "):
     """
     """
     letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -64,10 +64,37 @@ def generar_menu(opciones:list, cantidad:int):
         else:
             print(f"               {letra})")     
     print("------------------------------------------------------------------")
-    opcion_seleccionada = input(f"\nPor favor, seleccione una opción: ")
+    opcion_seleccionada = input(mensaje)
     print("------------------------------------------------------------------")
     print(f"\n\n")
     return opcion_seleccionada
+def solicitar_y_validar_numero_entero(mensaje:str)->int:
+    """
+    Esta función pide un dato por consola y valida que sea un número entero.
+    Recibe: El mensaje a imprimir al usuario.
+    Retorna: El numero validado.
+    """
+    numero = input(mensaje)
+    while (determinar_numero(numero) == False) or (determinar_numero(numero) == 'float'):
+        numero = input(mensaje)
+    numero = castear_dato(numero)
+    return numero
+def solicitar_y_validar_numero_entero_en_rango(mensaje:str, minimo:int, maximo:int)->int:
+    """
+    Esta función pide un entero al usuario y valida que se encuentre
+    dentro de un rango numérico determinado (inclusive)
+    Recibe: Un mensaje que se imprimira al usuario, un rango numérico
+    Retorna: El mismo número validado y casteado
+    """
+    numero = input(mensaje)
+    while (comprobar_numero_dentro_de_rango(numero, minimo, maximo) != True) or (
+            determinar_numero(numero) != 'int'
+            ):
+        numero = input(mensaje)
+    numero = castear_dato(numero)
+    return numero
+
+
 # Situacional para usar | Listas
 def cortar_iterable(iterable:str|list, desde:int, hasta:int)->str|list:
     """
@@ -128,6 +155,7 @@ def determinar_numero(dato:str)->bool|str:
         # Contador de Iteraciónes
         pos = 0
         # Recorrer cada carácter en la cadena
+        dato = str(dato)
         for char in dato:
             if char == '-':
                 # Si el signo negativo no está primero no es un número
@@ -313,12 +341,85 @@ def generar_lista_aleatoria_letras_mayusculas(cantidad_elementos:int, minimo:int
         letra = chr(numero_aleatorio)
         lista_letras_aleatorias += [letra]
     return lista_letras_aleatorias
-def mostrar_lista(lista:list)->None:
+def mostrar_lista(lista:list, mensaje:str="")->None:
     """
     """
+    if mensaje != "":
+        print(mensaje)
     for elemento in lista:
         if elemento == lista[-1]:
             print(elemento)
         else:
             print(f"{elemento}", end=" , ")
+def ordenar_lista(lista:list, criterio:str="ASC")->bool:
+    bandera = False
+    for i in range(len(lista)-1):
+        for j in range(i+1, len(lista)):
+            if (criterio == "ASC" and lista[i] > lista[j]) or (criterio == "DESC" and lista[i] < lista[j]):
+                aux = lista[j]
+                lista[j] = lista[i]
+                lista[i] = aux
+                bandera = True
+    return bandera
+def swapear(lista:list, indice_a=int, indice_b=int)->bool:
+        retorno = False
+        if len(lista) > 1 and indice_a < len(lista) and indice_b < len(lista):
+            aux = lista[indice_a]
+            lista[indice_a] = lista[indice_b]
+            lista[indice_b] = aux
+            retorno = True
+        return retorno
+"""
+Matrices
+"""
+def verificar_numero_repetido_en_matriz(matriz:list, numero:int)->bool:
+    """
+    """
+    bandera_numero_repetido = False
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            if matriz[i][j] == numero:
+                bandera_numero_repetido = True
+                break
+        if bandera_numero_repetido == True:
+            break
+    return bandera_numero_repetido
+def crear_matriz(cantidad_filas:int, cantidad_columnas:int, valor_inicial:any=0) -> list:
+    """
+    Esta función se encarga de crear una matriz vacía
+        Recibe:
+            cantidad_filas (int): representa las filas que va a tener la matriz
+            cantidad_columans (int): representa las columnas que va a tener la matriz
 
+        Devuelve:
+            matriz (list): la matriz creada a través de los parámetros
+    """
+    matriz = []
+    for _ in range(cantidad_filas):
+        fila = [valor_inicial] * cantidad_columnas
+        matriz += [fila]
+
+    return matriz
+def cargar_matriz_elementos_aleatorios_rango_1_9(
+        matriz:list, minimo:int = 1, maximo:int = 9
+        )->None:
+    """
+    """
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            numero_random = random.randint(minimo, maximo)
+            while verificar_numero_repetido_en_matriz(matriz, numero_random) == True:
+                numero_random = random.randint(minimo, maximo)
+            matriz[i][j] = numero_random
+def llenar_matriz_aleatoriamente(matriz_vacia:list, desde:int, hasta:int)->None:
+    for i in range(len(matriz_vacia)):
+        for j in range(len(matriz_vacia[i])):
+            matriz_vacia[i][j] = str(random.randint(desde,hasta))
+def mostrar_matriz(matriz:list)->None:
+    """
+    """
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            print(matriz[i][j], end=" ")
+        
+        print()

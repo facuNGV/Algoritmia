@@ -4,7 +4,7 @@
 """
 import random
 
-def crear_matriz(cantidad_filas:int, cantidad_columnas:int, valor_inicial:any) -> list:
+def crear_matriz(cantidad_filas:int, cantidad_columnas:int, valor_inicial:any=0) -> list:
     """
     Esta función se encarga de crear una matriz vacía
         Recibe:
