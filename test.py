@@ -1,6 +1,8 @@
-from MisFunciones import *
-
-lista = [None]*10
-print(lista)
 
 
+abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+DATO = "BCD"
+
+if DATO in abc:
+    print("SI")

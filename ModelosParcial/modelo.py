@@ -1,4 +1,4 @@
-from ..MisFunciones import *
+from ..Parcial.MisFunciones import *
 
 
 

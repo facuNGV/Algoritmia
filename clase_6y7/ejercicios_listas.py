@@ -1,5 +1,5 @@
 import random
-from MisFunciones import *
+from Parcial.MisFunciones import *
 # 1) Definir una lista que almacene 5 enteros. Sumar todos sus elementos y mostrar dicha suma.
 def sumar_enteros(lista:list) -> int:
     """
@@ -95,7 +95,7 @@ def determinar_nombres_mas_de_5_caracteres(lista_nombres:list)->int:
     
     return contador_palabras
 # 8)
-def solicitar_numero(longitud_lista:int)->list:
+def solicitar_numeros_para_lista(longitud_lista:int)->list:
     """
     """
     lista = []
@@ -131,7 +131,7 @@ def muestro_lista(lista:list)->None:
     for elemento in lista:
         print(elemento)
     print(f"el largo de la lista es: {medir_coleccion(lista)}")
-# lista = pedir_elementos_para_lista("Ingrese numeros(0 para terminar): ")
+# lista = pedir_elementos_para_lista("Ingrese numeros(0 para terminar): ", 0)
 
 # 10)
 def almacenar_numeros_en_lista(mensaje:str, cantidad:int)->list:
